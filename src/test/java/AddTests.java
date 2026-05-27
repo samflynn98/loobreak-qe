@@ -26,6 +26,19 @@ public class AddTests {
         Thread.sleep(5000);
     }
 
+    @Test
+    public void addMultipleItems() throws Exception {
+        driver.get("https://todomvc.com/examples/react/dist/#/active");
+        WebElement searchBar = driver.findElement(By.id("todo-input"));
+        int number_of_items = 1;
+        while(number_of_items <= 10) {
+            searchBar.sendKeys("test");
+            searchBar.sendKeys(Keys.ENTER);
+            number_of_items++;
+            Thread.sleep(500);
+        }
+    }
+
     @AfterAll
     static void closeBrowser() {
         driver.quit();
