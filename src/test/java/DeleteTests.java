@@ -63,7 +63,8 @@ public class DeleteTests {
     @Test
     public void noItemsNothingToDelete() throws Exception {
 
-        driver.get("https://todomvc.com/examples/react/dist/#/");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
 
         int itemCount = driver.findElements(
                 By.cssSelector("[data-testid='todo-item-label']")
