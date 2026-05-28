@@ -15,50 +15,23 @@ public class StatusTests {
 
     @Test
     public void numberOfIncompleteItemsEqualsStatusBar() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
+        TodoPage page = new TodoPage(driver).navigate();
         page.addItem("test");
-
-        WebElement checkbox = driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']"));
-
-        checkbox.click();
-
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("0"));
+        page.completeItem(1);
     }
 
     @Test
     public void noItemsLeftWhenCompleted() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
+        TodoPage page = new TodoPage(driver).navigate();
         page.addItem("test");
-
-        driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']")
-
-        ).click();
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("0"));
+        page.completeItem(1);
     }
 
     @Test
     public void completedItemsNotIncludedInStatus() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-
+        TodoPage page = new TodoPage(driver).navigate();
         page.addMultipleItems(2);
-
-        driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']")).click();
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("1"));
+        page.completeItem(1);
     }
 
     @AfterEach

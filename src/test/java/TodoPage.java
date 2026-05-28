@@ -12,8 +12,9 @@ public class TodoPage {
         this.driver = driver;
     }
 
-    public void navigate() {
+    public TodoPage navigate() {
         driver.get("https://todomvc.com/examples/react/dist/#/active");
+        return this;
     }
 
     public void addItem(String text) {
@@ -60,5 +61,27 @@ public class TodoPage {
             driver.findElement(By.cssSelector("li:nth-child(" + (numberOfItems) + ") .destroy")).click();
             numberOfItems--;
         }
+    }
+
+    public void completeItem(int itemNumber) {
+
+        driver.findElement(
+                By.cssSelector("li:nth-child(" + itemNumber + ") [data-testid='todo-item-toggle']")
+
+        ).click();
+    }
+
+    public String getItemText() {
+
+        return driver.findElement(
+                By.cssSelector("[data-testid='todo-item-label']")
+        ).getText();
+    }
+
+    public int getNumberOfItems() {
+
+        return driver.findElements(
+                By.cssSelector("[data-testid='todo-item-label']")
+        ).size();
     }
 }
