@@ -14,21 +14,22 @@ public class AddTests {
 
     @Test
     public void addItem() throws Exception {
-        driver.get("https://todomvc.com/examples/react/dist/#/active");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
         WebElement searchBar = driver.findElement(By.id("todo-input"));
         searchBar.sendKeys("test");
         searchBar.sendKeys(Keys.ENTER);
         WebElement item = driver.findElement(By.cssSelector("[data-testid='todo-item-label']"));
         String itemName = item.getText();
         assertEquals(itemName, "test");
-        Thread.sleep(5000);
     }
 
     @Test
     public void addMultipleItems() throws Exception {
         String[] words = {"apple", "banana", "orange", "grape", "melon"};
         Random random = new Random();
-        driver.get("https://todomvc.com/examples/react/dist/#/active");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
         WebElement searchBar = driver.findElement(By.id("todo-input"));
         int itemNumber = 1;
         while(itemNumber <= 10) {
@@ -38,7 +39,7 @@ public class AddTests {
             WebElement currentItem = driver.findElement(By.cssSelector("li:nth-child(" + itemNumber + ") label"));
             assertEquals(currentItem.getText(), randomWord);
             itemNumber++;
-            Thread.sleep(1000);
+            Thread.sleep(100);
         }
     }
 

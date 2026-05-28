@@ -19,7 +19,8 @@ public class DeleteTests {
 
     @Test
     public void deleteItem() throws Exception {
-        driver.get("https://todomvc.com/examples/react/dist/");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
         driver.findElement(By.id("todo-input")).sendKeys("test");
         driver.findElement(By.id("todo-input")).sendKeys(Keys.ENTER);
         WebElement itemToDelete = driver.findElement(By.cssSelector("[data-testid='todo-item-label']"));
@@ -35,7 +36,8 @@ public class DeleteTests {
     public void addMultipleItems() throws Exception {
         String[] words = {"apple", "banana", "orange", "grape", "melon"};
         Random random = new Random();
-        driver.get("https://todomvc.com/examples/react/dist/#/active");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
         WebElement searchBar = driver.findElement(By.id("todo-input"));
         int itemNumber = 1;
         while (itemNumber <= 10) {

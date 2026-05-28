@@ -23,7 +23,8 @@ public class ModifyTests {
     @Test
     public void modifyItem() throws Exception {
 
-        driver.get("https://todomvc.com/examples/react/dist/#/active");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
 
         WebElement searchBar =
                 driver.findElement(By.id("todo-input"));
@@ -66,7 +67,8 @@ public class ModifyTests {
 
     @Test
     public void modifyItemByRemovingAllText() throws Exception {
-        driver.get("https://todomvc.com/examples/react/dist/#/");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
 
         WebElement searchBar = driver.findElement(By.id("todo-input"));
         searchBar.sendKeys("test");
@@ -89,7 +91,8 @@ public class ModifyTests {
 
     @Test
     public void modifyCompletedItem() throws Exception {
-        driver.get("https://todomvc.com/examples/react/dist/#/");
+        TodoPage page = new TodoPage(driver);
+        page.navigate();
 
         WebElement searchBar = driver.findElement(By.id("todo-input"));
         searchBar.sendKeys("test");
