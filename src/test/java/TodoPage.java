@@ -33,4 +33,27 @@ public class TodoPage {
             i++;
         }
     }
+
+    public void clickActiveFilter() {
+        driver.findElement(By.linkText("Active")).click();
+    }
+
+    public void clickCompletedFilter() {
+        driver.findElement(By.linkText("Completed")).click();
+    }
+
+    public void clickAllFilter() {
+        driver.findElement(By.linkText("All")).click();
+    }
+
+    public int getNumberOfItems() {
+        return driver.findElements(By.cssSelector("[data-testid='todo-item-label']")).size();
+    }
+
+    public void completeItem(int itemNumber) {
+
+        driver.findElement(
+                By.cssSelector("li:nth-child(" + itemNumber + ") [data-testid='todo-item-toggle']")
+        ).click();
+    }
 }
