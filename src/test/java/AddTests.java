@@ -27,9 +27,11 @@ public class AddTests {
         TodoPage page = new TodoPage(driver);
         page.navigate();
         int itemNumber = 10;
-        page.addMultipleItems(10);
-        WebElement currentItem = driver.findElement(By.cssSelector("li:nth-child(" + 10 + ") label"));
-        //add actual test here
+        page.addMultipleItems(itemNumber);
+        int actualNumberOfItems =
+                driver.findElements(By.cssSelector("[data-testid='todo-item-label']")).size();
+
+        assertEquals(itemNumber, actualNumberOfItems);
     }
 
     @AfterEach
