@@ -10,10 +10,10 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeleteTests {
-    private static ChromeDriver driver;
+    private ChromeDriver driver;
 
-    @BeforeAll
-    static void launchBrowser() {
+    @BeforeEach
+    void launchBrowser() {
         driver = new ChromeDriver();
     }
 
@@ -59,8 +59,26 @@ public class DeleteTests {
         }
     }
 
-    @AfterAll
-    static void closeBrowser() {
+    @Test
+    public void noItemsNothingToDelete() throws Exception {
+
+        driver.get("https://todomvc.com/examples/react/dist/#/");
+
+        int itemCount = driver.findElements(
+                By.cssSelector("[data-testid='todo-item-label']")
+        ).size();
+
+        assertEquals(0, itemCount);
+
+        int clearCompletedButtons = driver.findElements(
+                By.cssSelector("[data-testid='footer-clear-completed']")
+        ).size();
+
+        assertEquals(0, clearCompletedButtons);
+    }
+
+    @AfterEach
+    void closeBrowser() {
         driver.quit();
     }
 }
