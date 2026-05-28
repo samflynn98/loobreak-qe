@@ -1,13 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 public class ModifyTests {
 
@@ -35,16 +35,8 @@ public class ModifyTests {
         page.addMultipleItems(10);
         String newText = "123";
         int itemID = 5;
-        WebElement itemToModify = driver.findElement(By.cssSelector("li:nth-child(" + itemID + ") label"));
-        new Actions(driver).doubleClick(itemToModify).perform();
-        WebElement textToModify = driver.findElement(By.cssSelector(".input-container:nth-child(1) > #todo-input"));
-        textToModify.sendKeys(Keys.COMMAND + "a");
-        textToModify.sendKeys(Keys.DELETE);
-        textToModify.sendKeys(newText);
-        textToModify.sendKeys(Keys.ENTER);
-        String modifiedItemName = page.getItemText(5);
-        System.out.println(modifiedItemName);
-        assertEquals(newText, modifiedItemName);
+        page.replaceItemText(itemID, newText);
+        assertEquals(newText, page.getItemText(itemID));
     }
 
     @Test

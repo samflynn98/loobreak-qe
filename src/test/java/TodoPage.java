@@ -89,5 +89,22 @@ public class TodoPage {
         return driver.findElement(By.cssSelector("li:nth-child(" + (itemID) + ") label")).getText();
     }
 
+    public void replaceItemText(int itemID, String newText) {
+        WebElement itemToModify =
+                driver.findElement(By.cssSelector("li:nth-child(" + itemID + ") label"));
+
+        new Actions(driver)
+                .doubleClick(itemToModify)
+                .perform();
+
+        WebElement textToModify =
+                driver.findElement(By.cssSelector(".input-container:nth-child(1) > #todo-input"));
+
+        textToModify.sendKeys(Keys.COMMAND + "a");
+        textToModify.sendKeys(Keys.DELETE);
+        textToModify.sendKeys(newText);
+        textToModify.sendKeys(Keys.ENTER);
+    }
+
 
 }
