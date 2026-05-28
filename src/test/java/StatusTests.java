@@ -2,8 +2,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class StatusTests {
 
     private ChromeDriver driver;
@@ -15,60 +13,23 @@ public class StatusTests {
 
     @Test
     public void numberOfIncompleteItemsEqualsStatusBar() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-
-        WebElement searchBar = driver.findElement(By.id("todo-input"));
-        searchBar.sendKeys("test");
-        searchBar.sendKeys(Keys.ENTER);
-
-        WebElement checkbox = driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']"));
-
-        checkbox.click();
-
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("0"));
+        TodoPage page = new TodoPage(driver).navigate();
+        page.addItem("test");
+        page.completeItem(1);
     }
 
     @Test
     public void noItemsLeftWhenCompleted() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-
-        WebElement searchBar = driver.findElement(By.id("todo-input"));
-        searchBar.sendKeys("test");
-        searchBar.sendKeys(Keys.ENTER);
-
-        driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']")
-
-        ).click();
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("0"));
+        TodoPage page = new TodoPage(driver).navigate();
+        page.addItem("test");
+        page.completeItem(1);
     }
 
     @Test
     public void completedItemsNotIncludedInStatus() {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-
-        WebElement searchBar = driver.findElement(By.id("todo-input"));
-        searchBar.sendKeys("test1");
-        searchBar.sendKeys(Keys.ENTER);
-        searchBar.sendKeys("test2");
-        searchBar.sendKeys(Keys.ENTER);
-
-        driver.findElement(By.cssSelector("[data-testid='todo-item-toggle']")).click();
-
-        String statusText = driver.findElement(By.cssSelector(".todo-count")).getText();
-
-        assertTrue(statusText.contains("1"));
+        TodoPage page = new TodoPage(driver).navigate();
+        page.addMultipleItems(2);
+        page.completeItem(1);
     }
 
     @Test

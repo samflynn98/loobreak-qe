@@ -2,7 +2,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Random;
 
 public class AddTests {
     private ChromeDriver driver;
@@ -14,24 +13,17 @@ public class AddTests {
 
     @Test
     public void addSingleItemTest() throws Exception {
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
+        TodoPage page = new TodoPage(driver).navigate();
         page.addItem("test");
-        WebElement item = driver.findElement(By.cssSelector("[data-testid='todo-item-label']"));
-        String itemName = item.getText();
-        assertEquals(itemName, "test");
+        assertEquals("test", page.getItemText(1));
     }
 
     @Test
     public void addMultipleItemsTest() throws Exception {
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-        int itemNumber = 10;
-        page.addMultipleItems(itemNumber);
-        int actualNumberOfItems =
-                driver.findElements(By.cssSelector("[data-testid='todo-item-label']")).size();
-
-        assertEquals(itemNumber, actualNumberOfItems);
+        TodoPage page = new TodoPage(driver).navigate();
+        int numberOfItems = 10;
+        page.addMultipleItems(numberOfItems);
+        assertEquals(numberOfItems, page.getNumberOfItems());
     }
 
     @AfterEach

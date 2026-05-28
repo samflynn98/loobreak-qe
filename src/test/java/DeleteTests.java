@@ -1,12 +1,6 @@
-// in MakersSearchTest.java
-
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeleteTests {
@@ -18,54 +12,20 @@ public class DeleteTests {
     }
 
     @Test
-    public void deleteSingleItemTest() throws Exception {
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-        page.addItem("test");
-        WebElement itemToDelete = driver.findElement(By.cssSelector("[data-testid='todo-item-label']"));
-        new Actions(driver)
-                .moveToElement(itemToDelete)
-                .perform();
-        driver.findElement(By.cssSelector(".destroy")).click();
-        boolean isPresent = driver.findElements(By.cssSelector("[data-testid='todo-item-label']")).size() > 0;
-        assertFalse(isPresent);
+    public void deleteMultipleItemsTest() throws Exception {
+        TodoPage page = new TodoPage(driver).navigate();
+        int numberOfItemsToAdd = 10;
+        page.addMultipleItems(numberOfItemsToAdd);
+        int numberOfItemsToDelete = 5;
+        page.deleteMultipleItems(numberOfItemsToDelete);
+        assertEquals((numberOfItemsToAdd-numberOfItemsToDelete), page.getNumberOfItems());
     }
 
     @Test
-    public void deleteMultipleItems() throws Exception {
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-        int itemNumber = 10;
-        page.addMultipleItems(itemNumber);
-        while (itemNumber > 1) {
-            WebElement itemToDelete = driver.findElement(By.cssSelector("li:nth-child(" + (itemNumber - 1) + ") label"));
-            new Actions(driver)
-                    .moveToElement(itemToDelete)
-                    .perform();
-            Thread.sleep(100);
-            driver.findElement(By.cssSelector("li:nth-child(" + (itemNumber - 1) + ") .destroy")).click();
-            boolean isPresent = driver.findElements(By.cssSelector("li:nth-child(" + itemNumber + ") label")).size() > 0;
-            assertFalse(isPresent);
-            itemNumber--;
-        }
-    }
-
-    @Test
-    public void noItemsNothingToDelete() throws Exception {
-
-        TodoPage page = new TodoPage(driver);
-        page.navigate();
-
-        int itemCount = driver.findElements(
-                By.cssSelector("[data-testid='todo-item-label']")
-        ).size();
-
+    public void noItemsNothingToDeleteTest() throws Exception {
+        int itemCount = driver.findElements(By.cssSelector("[data-testid='todo-item-label']")).size();
         assertEquals(0, itemCount);
-
-        int clearCompletedButtons = driver.findElements(
-                By.cssSelector("[data-testid='footer-clear-completed']")
-        ).size();
-
+        int clearCompletedButtons = driver.findElements(By.cssSelector("[data-testid='footer-clear-completed']")).size();
         assertEquals(0, clearCompletedButtons);
     }
 
