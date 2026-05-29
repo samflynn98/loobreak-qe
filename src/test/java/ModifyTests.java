@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 
 public class ModifyTests {
     private WebDriver driver;
-    String browser = "safari";
+    String browser = "chrome";
 
     @BeforeEach
     void launchBrowser() {
@@ -57,6 +59,23 @@ public class ModifyTests {
         int itemID = 1;
         page.modifyItem(itemID, textToAdd);
         assertTrue(page.getItemText(itemID).contains(textToAdd));
+    }
+
+    @Test
+    public void exitModifyingItemTest() throws Exception {
+        TodoPage page = new TodoPage(driver).navigate();
+        String itemName = "test";
+        page.addItem(itemName);
+        int itemID = 1;
+        WebElement itemToModify = driver.findElement(By.cssSelector("li:nth-child(" + itemID + ") label"));
+        new Actions(driver)
+                .doubleClick(itemToModify)
+                .perform();
+        WebElement textToModify = driver.findElement(By.cssSelector(".input-container:nth-child(1) > #todo-input"));
+        String textToAdd = "123";
+        textToModify.sendKeys(textToAdd);
+        driver.findElement(By.id("todo-input")).click();
+        assertEquals(itemName, page.getItemText(1));
     }
 
     @AfterEach
