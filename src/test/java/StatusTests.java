@@ -4,6 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StatusTests {
     private WebDriver driver;
@@ -21,28 +22,36 @@ public class StatusTests {
     }
 
     @Test
-    public void numberOfIncompleteItemsEqualsStatusBar() {
+    public void numberOfIncompleteItemsEqualsStatusBarTest() {
         TodoPage page = new TodoPage(driver).navigate();
         page.addItem("test");
-        page.completeItem(1);
+        String statusText = page.getStatusText();
+
+        assertTrue(statusText.contains("1"));
     }
 
     @Test
-    public void noItemsLeftWhenCompleted() {
+    public void noItemsLeftWhenCompletedTest() {
         TodoPage page = new TodoPage(driver).navigate();
         page.addItem("test");
         page.completeItem(1);
+        String statusText = page.getStatusText();
+
+        assertTrue(statusText.contains("0"));
     }
 
     @Test
-    public void completedItemsNotIncludedInStatus() {
+    public void completedItemsNotIncludedInStatusTest() {
         TodoPage page = new TodoPage(driver).navigate();
         page.addMultipleItems(2);
         page.completeItem(1);
+        String statusText = page.getStatusText();
+
+        assertTrue(statusText.contains("1"));
     }
 
     @Test
-    public void thereIsAFilterForCompletionStatus() {
+    public void thereIsAFilterForCompletionStatusTest() {
         TodoPage page = new TodoPage(driver);
         page.navigate();
 
@@ -51,10 +60,11 @@ public class StatusTests {
         page.clickActiveFilter();
         page.clickCompletedFilter();
         page.clickAllFilter();
+        assertEquals(3, driver.findElements(By.cssSelector(".filters a")).size());
     }
 
     @Test
-    public void completionStatusFilterSortsItemsAsExpected() {
+    public void completionStatusFilterSortsItemsTest() {
         TodoPage page = new TodoPage(driver);
         page.navigate();
 

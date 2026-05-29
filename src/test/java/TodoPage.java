@@ -105,6 +105,10 @@ public class TodoPage {
         textToModify.sendKeys(newText);
         textToModify.sendKeys(Keys.ENTER);
     }
-
+    public String getStatusText() {
+        return driver.findElement(
+                By.cssSelector(".todo-count")
+        ).getText();
+    }
 
 }
