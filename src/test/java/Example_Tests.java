@@ -23,7 +23,7 @@ public class Example_Tests {
     }
 
     @Test
-    public void addSingleItemTest() throws Exception {
+    public void getHomepageTitle() throws Exception {
         Homepage page = new Homepage(driver).navigate();
         page.get_title();
     }
