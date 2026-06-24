@@ -1,11 +1,14 @@
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Title_Tests {
+public class Navigation_Tests {
     private WebDriver driver;
     String browser = "chrome";
     String browserMode = "mobile"; //to do: add mobile mode
@@ -23,15 +26,10 @@ public class Title_Tests {
     }
 
     @Test
-    public void getHomepageTitle() throws Exception {
+    public void navigateToQuizPage() throws Exception {
         Homepage page = new Homepage(driver).navigate();
-        assertEquals("LooBreak", page.get_title());
-    }
-
-    @Test
-    public void getQuizTitle() throws Exception {
-        Quiz_Page page = new Quiz_Page(driver).navigate();
-        assertEquals("LooBreak", page.get_title()); //should each page have different title?
+        page.navigateToPage().click();
+        assertEquals("http://localhost:5173/quiz", driver.getCurrentUrl());
     }
 
     @AfterEach
