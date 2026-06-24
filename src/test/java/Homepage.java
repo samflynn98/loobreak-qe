@@ -14,8 +14,8 @@ public class Homepage {
         return this;
     }
 
-    public WebElement navigateToPage() {
-        WebElement newPage = driver.findElement(By.cssSelector("a[href*='quiz']"));
+    public WebElement navigateToPage(String targetPath) {
+        WebElement newPage = driver.findElement(By.cssSelector("a[href*='" + targetPath + "']"));
         return newPage;
     }
 

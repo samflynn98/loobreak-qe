@@ -18,7 +18,7 @@ public class Navigation_Tests {
     @Test
     public void navigateToQuizPage() throws Exception {
         Homepage page = new Homepage(driver).navigate();
-        page.navigateToPage().click();
+        page.navigateToPage("quiz").click();
         assertEquals("http://localhost:5173/quiz", driver.getCurrentUrl());
     }
 
