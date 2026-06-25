@@ -24,6 +24,12 @@ public class Title_Tests {
         assertEquals("LooBreak", page.get_title()); //should each page have different title?
     }
 
+    @Test
+    public void quizPageShowsQuizHeading() {
+        Quiz_Page page = new Quiz_Page(driver).navigate();
+        assertEquals("Quiz", page.getHeadingText());
+    }
+
     @AfterEach
     void closeBrowser() {
         driver.quit();

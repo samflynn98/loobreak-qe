@@ -22,6 +22,12 @@ public class Navigation_Tests {
         assertEquals("http://localhost:5173/quiz", driver.getCurrentUrl());
     }
 
+    @Test
+    public void homepageWelcomeHeading() throws Exception {
+        Homepage page = new Homepage(driver).navigate();
+        assertEquals("Welcome to LooBreak!", page.getHeadingText());
+    }
+
     @AfterEach
     void closeBrowser() {
         driver.quit();

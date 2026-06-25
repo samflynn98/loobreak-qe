@@ -23,4 +23,11 @@ public class Homepage {
         String title = driver.getTitle();
         return title;
     }
+
+    public String getHeadingText() {
+        WebElement heading = driver.findElement(By.tagName("h1"));
+        return heading.getText();
+    }
+
+
 }
