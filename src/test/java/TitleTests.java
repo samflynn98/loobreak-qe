@@ -54,7 +54,7 @@ public class TitleTests {
         assertEquals("Leaderboard", page.getHeadingText());
     }
 
-    //Leaderboard page
+    //Results page
     @Test
     public void resultsTitleCorrect() throws Exception {
         ResultsPage page = new ResultsPage(driver).navigate();
