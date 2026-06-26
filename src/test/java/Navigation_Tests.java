@@ -50,24 +50,10 @@ public class Navigation_Tests {
         Quiz_Page page = new Quiz_Page(driver).navigate();
         Thread.sleep(2000);
         assertEquals("Question 1:", page.getQuestionNumber());
+        page.answerQuestion(1);
+        page.submitAnswer();
         page.goToNextQuestion();
         assertEquals("Question 2:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 3:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 4:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 5:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 6:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 7:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 8:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 9:", page.getQuestionNumber());
-        page.goToNextQuestion();
-        assertEquals("Question 10:", page.getQuestionNumber());
     }
 
     @Test

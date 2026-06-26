@@ -24,6 +24,14 @@ public class Quiz_Page {
         return heading.getText();
     }
 
+    public void answerQuestion(int id) {
+        driver.findElement(By.cssSelector("button:nth-child(" + id + ")")).click();
+    }
+
+    public void submitAnswer() {
+        driver.findElement(By.cssSelector(".feed > button")).click();
+    }
+
     public void goToNextQuestion() {
         driver.findElement(By.cssSelector(".feed > button")).click();
     }
