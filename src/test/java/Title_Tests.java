@@ -25,8 +25,9 @@ public class Title_Tests {
     }
 
     @Test
-    public void quizPageShowsHeading() {
+    public void quizPageShowsHeading() throws Exception {
         Quiz_Page page = new Quiz_Page(driver).navigate();
+        Thread.sleep(2000);
         assertEquals("Quiz", page.getHeadingText());
     }
 
