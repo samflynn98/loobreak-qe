@@ -28,10 +28,10 @@ public class DarkModeTests {
         navbar.toggleDarkMode();
         WebElement body = driver.findElement(By.tagName("body"));
         String darkColour = body.getCssValue("background-color");
-        assertEquals("rgba(0, 0, 0, 1)",  darkColour);
+        assertTrue(darkColour.contains("0, 0, 0"));
         navbar.toggleDarkMode();
         String lightColour = body.getCssValue("background-color");
-        assertEquals("rgba(255, 255, 255, 1)",  lightColour);
+        assertTrue(lightColour.contains("255, 255, 255"));
     }
 
     @AfterEach

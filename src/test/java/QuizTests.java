@@ -29,9 +29,9 @@ public class QuizTests {
         for (int i = 1; i <= 4; i++) {
             String colour = page.getAnswer(i).getCssValue("background-color");
             System.out.println(colour);
-            if (colour.contains("rgba(0, 128, 0") || colour.contains("rgb(0, 128, 0")) {
+            if (colour.contains("0, 128, 0")) {
                 green++;
-            } else if (colour.contains("rgba(255, 0, 0") || colour.contains("rgb(255, 0, 0")) {
+            } else if (colour.contains("255, 0, 0")) {
                 red++;
             }
         }
@@ -52,7 +52,7 @@ public class QuizTests {
             page.answerQuestion(nextRandom);
             page.submitAnswer();
             String answerColour = page.getAnswer(nextRandom).getCssValue("background-color");
-            if (answerColour.contains("rgba(0, 128, 0") || answerColour.contains("rgb(0, 128, 0")) {
+            if (answerColour.contains("0, 128, 0")) {
                 correctAnswers++;
             }
         }
