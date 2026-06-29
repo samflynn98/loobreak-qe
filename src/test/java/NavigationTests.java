@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NavigationTests {
     private WebDriver driver;
+    private BrowserConfig config;
 
     @BeforeEach
     void launchBrowser() {
+        config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("chrome");
         config.windowMode("portrait");
@@ -31,6 +33,7 @@ public class NavigationTests {
         assertEquals("http://localhost:5173/leaderboard", driver.getCurrentUrl());
         navbar.goToNavbarPage("Home");
         assertEquals("http://localhost:5173/", driver.getCurrentUrl());
+        //config.takeScreenshot(driver, "NavigationTest1.png");
     }
 
     //PageObjectModels.Homepage tests
@@ -58,9 +61,6 @@ public class NavigationTests {
         page.submitAnswer();
         page.goToNextQuestion();
         assertEquals("Question 2:", page.getQuestionNumber());
-    }
-
-    public void takeScreenshot(WebDriver driver, String image) {
     }
 
     @AfterEach

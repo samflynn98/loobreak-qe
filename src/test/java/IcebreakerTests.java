@@ -8,9 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IcebreakerTests {
     private WebDriver driver;
+    private BrowserConfig config;
 
     @BeforeEach
     void launchBrowser() {
+        config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("chrome");
         config.windowMode("portrait");
@@ -27,6 +29,7 @@ public class IcebreakerTests {
         page.toggleIcebreaker();
         Thread.sleep(100);
         assertTrue(page.getIcebreakerText().length() > 0);
+        //config.takeScreenshot(driver, "IcebreakerTest1.png");
     }
 
     @Test
@@ -53,8 +56,6 @@ public class IcebreakerTests {
         System.out.println("Number of repeated icebreakers: " + notUnique);
     }
 
-    public void takeScreenshot(WebDriver driver, String image) {
-    }
 
     @AfterEach
     void closeBrowser() {

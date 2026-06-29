@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuizTests {
     private WebDriver driver;
+    private BrowserConfig config;
 
     @BeforeEach
     void launchBrowser() {
+        config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("chrome");
         config.windowMode("portrait");
@@ -56,10 +58,8 @@ public class QuizTests {
                 correctAnswers++;
             }
         }
+        //config.takeScreenshot(driver, "QuizTest1.png");
         System.out.println("number correct: " + correctAnswers);
-    }
-
-    public void takeScreenshot(WebDriver driver, String image) {
     }
 
     @AfterEach

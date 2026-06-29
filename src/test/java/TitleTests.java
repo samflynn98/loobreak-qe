@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TitleTests {
     private WebDriver driver;
+    private BrowserConfig config;
 
     @BeforeEach
     void launchBrowser() {
+        config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("chrome");
         config.windowMode("portrait");
@@ -18,6 +20,7 @@ public class TitleTests {
     public void homepageTitleCorrect() throws Exception {
         Homepage page = new Homepage(driver).navigate();
         assertEquals("LooBreak", page.getTitle());
+        //config.takeScreenshot(driver, "TitleTest1.png");
     }
 
     @Test
@@ -66,9 +69,6 @@ public class TitleTests {
         ResultsPage page = new ResultsPage(driver).navigate();
         Thread.sleep(2000);
         assertEquals("Your Results", page.getHeadingText());
-    }
-
-    public void takeScreenshot(WebDriver driver, String image) {
     }
 
     @AfterEach

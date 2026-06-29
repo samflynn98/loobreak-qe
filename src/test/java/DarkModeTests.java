@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 
+
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,9 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DarkModeTests {
     private WebDriver driver;
+    private BrowserConfig config;
 
     @BeforeEach
     void launchBrowser() {
+        config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("safari");
         config.windowMode("portrait");
@@ -27,11 +30,11 @@ public class DarkModeTests {
         Homepage page = new Homepage(driver);
         page.navigate();
         Navbar navbar = new Navbar(driver);
-        //takeScreenshot(driver, "SafariDarkModeTest1.png");
-        //Thread.sleep(3000);
+        config.takeScreenshot(driver, "SafariDarkModeTest1.png");
+        Thread.sleep(3000);
         navbar.toggleDarkMode();
-        //takeScreenshot(driver, "SafariDarkModeTest2.png");
-        //Thread.sleep(3000);
+        config.takeScreenshot(driver, "SafariDarkModeTest2.png");
+        Thread.sleep(3000);
         WebElement body = driver.findElement(By.tagName("body"));
         String darkColour = body.getCssValue("background-color");
         assertTrue(darkColour.contains("0, 0, 0"));
@@ -39,11 +42,8 @@ public class DarkModeTests {
         navbar.toggleDarkMode();
         String lightColour = body.getCssValue("background-color");
         assertTrue(lightColour.contains("255, 255, 255"));
-        //Thread.sleep(3000);
-        //takeScreenshot(driver, "SafariDarkModeTest3.png");
-    }
-
-    public void takeScreenshot(WebDriver driver, String image) {
+        Thread.sleep(3000);
+        config.takeScreenshot(driver, "SafariDarkModeTest3.png");
     }
 
     @AfterEach
