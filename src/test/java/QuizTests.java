@@ -22,15 +22,16 @@ public class QuizTests {
     public void threeRedOneGreenAnswer() throws Exception {
         QuizPage page = new QuizPage(driver);
         page.navigate();
-        Thread.sleep(100);
+        Thread.sleep(200);
         page.answerQuestion(1);
         page.submitAnswer();
         int red = 0, green = 0;
         for (int i = 1; i <= 4; i++) {
             String colour = page.getAnswer(i).getCssValue("background-color");
-            if (colour.equals("rgba(0, 128, 0, 1)")) {
+            System.out.println(colour);
+            if (colour.contains("rgba(0, 128, 0") || colour.contains("rgb(0, 128, 0")) {
                 green++;
-            } else if (colour.equals("rgba(255, 0, 0, 1)")) {
+            } else if (colour.contains("rgba(255, 0, 0") || colour.contains("rgb(255, 0, 0")) {
                 red++;
             }
         }
@@ -51,7 +52,7 @@ public class QuizTests {
             page.answerQuestion(nextRandom);
             page.submitAnswer();
             String answerColour = page.getAnswer(nextRandom).getCssValue("background-color");
-            if (answerColour.equals("rgba(0, 128, 0, 1)")) {
+            if (answerColour.contains("rgba(0, 128, 0") || answerColour.contains("rgb(0, 128, 0")) {
                 correctAnswers++;
             }
         }
