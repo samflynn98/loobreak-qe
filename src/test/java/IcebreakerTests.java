@@ -1,0 +1,50 @@
+import PageObjectModels.BrowserConfig;
+import PageObjectModels.Homepage;
+import PageObjectModels.Navbar;
+import PageObjectModels.QuizPage;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class IcebreakerTests {
+    private WebDriver driver;
+
+    @BeforeEach
+    void launchBrowser() {
+        BrowserConfig config = new BrowserConfig();
+        driver = config.BrowserSelect("chrome");
+        config.windowMode("maximize");
+    }
+
+    @Test
+    public void icebreakersAreUnique() throws Exception {
+        Homepage page = new Homepage(driver).navigate();
+        page.navigate();
+        int notUnique = 0;
+        page.toggleIcebreaker();
+        Thread.sleep(100);
+        String firstIcebreaker = page.getIcebreakerText();
+        page.toggleIcebreaker();
+        int i = 0;
+        while(i < 10) {
+            page.toggleIcebreaker();
+            Thread.sleep(100);
+            String currentIcebreaker = page.getIcebreakerText();
+            if (currentIcebreaker.equals(firstIcebreaker)) {
+                notUnique++;
+            }
+            page.toggleIcebreaker();
+            i++;
+        }
+        assertTrue(notUnique < 9);
+        System.out.println("Number of repeated Icebreakers: " + notUnique);
+    }
+
+    @AfterEach
+    void closeBrowser() {
+        driver.quit();
+    }
+}

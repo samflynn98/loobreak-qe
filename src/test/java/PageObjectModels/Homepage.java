@@ -11,6 +11,7 @@ public class Homepage {
         this.driver = driver;
     }
 
+    //Navigation
     public Homepage navigate() {
         driver.get("http://localhost:5173/");
         return this;
@@ -21,6 +22,7 @@ public class Homepage {
         return newPage;
     }
 
+    //Title & Heading
     public String getTitle() {
         String title = driver.getTitle();
         return title;
@@ -29,5 +31,15 @@ public class Homepage {
     public String getHeadingText() {
         WebElement heading = driver.findElement(By.tagName("h1"));
         return heading.getText();
+    }
+
+    //Icebreakers
+    public void toggleIcebreaker() {
+        driver.findElement(By.cssSelector("[data-testid='icebreaker-reveal-btn']")).click();
+    }
+
+    public String getIcebreakerText() {
+        String icebreaker = driver.findElement(By.cssSelector(".\\_icebreakerText_1ti99_10")).getText();
+        return icebreaker;
     }
 }
