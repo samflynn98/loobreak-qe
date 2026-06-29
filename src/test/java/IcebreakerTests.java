@@ -1,13 +1,10 @@
 import PageObjectModels.BrowserConfig;
 import PageObjectModels.Homepage;
-import PageObjectModels.Navbar;
-import PageObjectModels.QuizPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IcebreakerTests {
     private WebDriver driver;
@@ -17,6 +14,19 @@ public class IcebreakerTests {
         BrowserConfig config = new BrowserConfig();
         driver = config.BrowserSelect("chrome");
         config.windowMode("maximize");
+    }
+
+    @Test
+    public void icebreakersOnlyShowWhenActive() throws Exception {
+        Homepage page = new Homepage(driver);
+        page.navigate();
+        Thread.sleep(100);
+        assertThrows(org.openqa.selenium.NoSuchElementException.class, () -> {
+            page.getIcebreakerText(); // This code block should throw the specified exception
+        });
+        page.toggleIcebreaker();
+        Thread.sleep(100);
+        assertTrue(page.getIcebreakerText().length() > 0);
     }
 
     @Test
@@ -40,7 +50,7 @@ public class IcebreakerTests {
             i++;
         }
         assertTrue(notUnique < 9);
-        System.out.println("Number of repeated Icebreakers: " + notUnique);
+        System.out.println("Number of repeated icebreakers: " + notUnique);
     }
 
     @AfterEach
