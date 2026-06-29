@@ -19,6 +19,26 @@ public class QuizTests {
     }
 
     @Test
+    public void threeRedOneGreenAnswer() throws Exception {
+        QuizPage page = new QuizPage(driver);
+        page.navigate();
+        Thread.sleep(100);
+        page.answerQuestion(1);
+        page.submitAnswer();
+        int red = 0, green = 0;
+        for (int i = 1; i <= 4; i++) {
+            String colour = page.getAnswer(i).getCssValue("background-color");
+            if (colour.equals("rgba(0, 128, 0, 1)")) {
+                green++;
+            } else if (colour.equals("rgba(255, 0, 0, 1)")) {
+                red++;
+            }
+        }
+        assertEquals(1, green);
+        assertEquals(3, red);
+    }
+
+    @Test
     public void scoreIncrementsCorrectly() throws Exception {
         QuizPage page = new QuizPage(driver);
         page.navigate();
