@@ -42,4 +42,9 @@ public class Homepage {
         String icebreaker = driver.findElement(By.cssSelector(".\\_icebreakerText_1ti99_10")).getText();
         return icebreaker;
     }
+
+    public String getLootipText() {
+        String lootip = driver.findElement(By.className("_tip_1ndiu_20")).getText();
+        return lootip;
+    }
 }

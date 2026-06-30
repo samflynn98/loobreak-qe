@@ -21,7 +21,7 @@ public class DarkModeTests {
     void launchBrowser() {
         config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
-        driver = config.BrowserSelect("safari");
+        driver = config.BrowserSelect("chrome");
         config.windowMode("portrait");
     }
 
