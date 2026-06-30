@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Objects;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,7 +48,7 @@ public class QuizTests {
         QuizPage page = new QuizPage(driver);
         page.navigate();
         int correctAnswers = 0;
-        for (int i = 1; i < 20; i++) {
+        while (Objects.equals(page.getHeadingText(), "Quiz")) {
             Thread.sleep(100);
             assertTrue(page.getScore().contains(Integer.toString(correctAnswers)));
             Random rand = new Random();
@@ -66,7 +68,7 @@ public class QuizTests {
     public void randomUsernamesUnique() throws Exception {
         QuizPage page = new QuizPage(driver);
         page.navigate();
-        for (int i = 1; i < 11; i++) {
+        while (Objects.equals(page.getHeadingText(), "Quiz")) {
             Thread.sleep(100);
             page.answerQuestion(1);
             page.submitAnswer();
@@ -80,7 +82,6 @@ public class QuizTests {
             page.generateUsername();
             Thread.sleep(100);
             String currentUsername = page.getUsername();
-            System.out.println(currentUsername);
             if (currentUsername.equals(firstUsername)) {
                 notUnique++;
             }
