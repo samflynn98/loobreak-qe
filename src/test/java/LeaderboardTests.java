@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LeaderboardTests {
@@ -62,6 +62,49 @@ public class LeaderboardTests {
         String rank = playerRow.findElement(By.xpath("./td[1]")).getText();
         assertEquals(score, playerRow.findElement(By.xpath("./td[3]")).getText());
         System.out.println(playername + " is rank " + rank + " with a score of " + score);
+    }
+
+    @Test //This test will only run once, have to clear database or restart server
+    public void playernamesAppearInSubmissionOrderOnLeaderboard() throws Exception {
+        QuizPage Quizpage = new QuizPage(driver).navigate();
+        LeaderboardPage leaderboardPage = new LeaderboardPage(driver);
+        String playerA = "aaa", playerB = "bbb";
+        Thread.sleep(100);
+        Quizpage.answerAllQuestions();
+        Quizpage.enterPlayername(playerB);
+        Quizpage.submitPlayername();
+        Thread.sleep(1000);
+        if(Quizpage.getWarningMessage().equals("Playername already exists. Playername must be unique.")) {
+            Random rand = new Random();
+            int nextRandom = rand.nextInt(1, 10000);
+            playerB = playerB + Integer.toString(nextRandom);
+            Quizpage.enterPlayername(Integer.toString(nextRandom));
+            Thread.sleep(100);
+            driver.findElement(By.cssSelector("button:nth-child(6)")).click();
+        }
+        Thread.sleep(100);
+        Quizpage.navigate();
+        Thread.sleep(100);
+        Quizpage.answerAllQuestions();
+        Quizpage.enterPlayername(playerA);
+        Quizpage.submitPlayername();
+        Thread.sleep(1000);
+        if(Quizpage.getWarningMessage().equals("Playername already exists. Playername must be unique.")) {
+            Random rand = new Random();
+            int nextRandom = rand.nextInt(1, 10000);
+            playerA = playerA + Integer.toString(nextRandom);
+            Quizpage.enterPlayername(Integer.toString(nextRandom));
+            Thread.sleep(100);
+            driver.findElement(By.cssSelector("button:nth-child(6)")).click();
+        }
+        Thread.sleep(100);
+        WebElement playerRowA = driver.findElement(By.xpath("//div[@data-testid='leaderboard']//tr[td[text()='" + playerA + "']]"));
+        WebElement playerRowB = driver.findElement(By.xpath("//div[@data-testid='leaderboard']//tr[td[text()='" + playerB + "']]"));
+        // 2. Extract data from that specific row (Score is the 3rd column / 3rd td)
+        int rankA = Integer.parseInt(playerRowA.findElement(By.xpath("./td[1]")).getText());
+        int rankB = Integer.parseInt(playerRowB.findElement(By.xpath("./td[1]")).getText());
+        assertTrue(rankB < rankA);
+        System.out.println(rankA + rankB);
     }
 
     @AfterEach
