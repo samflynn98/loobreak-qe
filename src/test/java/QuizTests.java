@@ -71,18 +71,14 @@ public class QuizTests {
         QuizPage page = new QuizPage(driver);
         page.navigate();
         Thread.sleep(200);
-        while (Objects.equals(page.getHeadingText(), "Quiz")) {
-            page.answerQuestion(1);
-            page.submitAnswer();
-            page.goToNextQuestion();
-        }
+        page.answerAllQuestions();
         int notUnique = 0;
-        page.generateUsername();
-        String firstUsername = page.getUsername();
+        page.generatePlayername();
+        String firstUsername = page.getPlayername();
         int i = 0;
         while(i < 50) {
-            page.generateUsername();
-            String currentUsername = page.getUsername();
+            page.generatePlayername();
+            String currentUsername = page.getPlayername();
             if (currentUsername.equals(firstUsername)) {
                 notUnique++;
             }

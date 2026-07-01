@@ -56,7 +56,6 @@ public class IcebreakerTests {
         System.out.println("Number of repeated icebreakers: " + notUnique);
     }
 
-
     @AfterEach
     void closeBrowser() {
         driver.quit();

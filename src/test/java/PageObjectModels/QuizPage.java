@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.Objects;
+
 public class QuizPage {
     protected WebDriver driver;
 
@@ -11,11 +13,13 @@ public class QuizPage {
         this.driver = driver;
     }
 
+    //Navigate
     public QuizPage navigate() {
         driver.get("http://localhost:5173/quiz");
         return this;
     }
 
+    //Heading and Title
     public String getTitle() {
         String title = driver.getTitle();
         return title;
@@ -26,6 +30,7 @@ public class QuizPage {
         return heading.getText();
     }
 
+    //Question Answering
     public void answerQuestion(int id) {
         driver.findElement(By.cssSelector("button:nth-child(" + id + ")")).click();
     }
@@ -38,6 +43,16 @@ public class QuizPage {
         driver.findElement(By.cssSelector("div > button:nth-child(5)")).click();
     }
 
+    public void answerAllQuestions() {
+        QuizPage page = new QuizPage(driver);
+        while (Objects.equals(page.getHeadingText(), "Quiz")) {
+            driver.findElement(By.cssSelector("button:nth-child(1)")).click();
+            driver.findElement(By.cssSelector("div > button:nth-child(5)")).click();
+            driver.findElement(By.cssSelector("div > button:nth-child(5)")).click();
+        }
+    }
+
+    //Question attributes
     public String getQuestionNumber() {
         String QuestionNum = driver.findElement(By.cssSelector("h3")).getText();
         return QuestionNum;
@@ -54,13 +69,22 @@ public class QuizPage {
     }
 
     //Results Sub Screen
-    public void generateUsername() {
+    public void generatePlayername() {
         driver.findElement(By.cssSelector("button:nth-child(3)")).click();
     }
 
-    public String getUsername() {
+    public String getPlayername() {
         WebElement playerNameInput = driver.findElement(By.name("playername"));
-        String username = playerNameInput.getAttribute("value");
-        return username;
+        String playername = playerNameInput.getAttribute("value");
+        return playername;
+    }
+
+    public String getFinalScore() {
+        String finalScore = driver.findElement(By.cssSelector("[data-testid='score']")).getText();
+        return finalScore;
+    }
+
+    public void submitPlayername() {
+        driver.findElement(By.cssSelector("form > button:nth-child(5)")).click();
     }
 }
