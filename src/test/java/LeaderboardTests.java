@@ -18,14 +18,14 @@ public class LeaderboardTests {
     void launchBrowser() {
         config = new BrowserConfig();
         BrowserConfig config = new BrowserConfig();
-        driver = config.BrowserSelect("chrome");
+        driver = config.BrowserSelect("firefox");
         config.windowMode("portrait");
     }
 
     @Test
     public void canGetPlayerInfo() throws Exception {
         LeaderboardPage page = new LeaderboardPage(driver).navigate();
-        Thread.sleep(2000);
+        Thread.sleep(100);
         int i = 1;
         while (page.getPlayerName(i) != null && !page.getPlayerName(i).trim().isEmpty()) {
             if (i == 1) {
@@ -47,6 +47,7 @@ public class LeaderboardTests {
     @Test
     public void playernameAppearsOnLeaderboard() throws Exception {
         QuizPage Quizpage = new QuizPage(driver).navigate();
+        Thread.sleep(100);
         LeaderboardPage leaderboardPage = new LeaderboardPage(driver);
         Thread.sleep(100);
         Quizpage.answerAllQuestions();
@@ -64,39 +65,24 @@ public class LeaderboardTests {
         System.out.println(playername + " is rank " + rank + " with a score of " + score);
     }
 
-    @Test //This test will only run once, have to clear database or restart server
+    @Test
     public void playernamesAppearInSubmissionOrderOnLeaderboard() throws Exception {
         QuizPage Quizpage = new QuizPage(driver).navigate();
+        Thread.sleep(100);
         LeaderboardPage leaderboardPage = new LeaderboardPage(driver);
-        String playerA = "aaa", playerB = "bbb";
+        Random rand = new Random();
+        int nextRandom = rand.nextInt(1, 10000);
+        String playerA = "aaa" + Integer.toString(nextRandom);
+        String playerB = "bbb" + Integer.toString(nextRandom);
         Thread.sleep(100);
         Quizpage.answerAllQuestions();
         Quizpage.enterPlayername(playerB);
         Quizpage.submitPlayername();
-        Thread.sleep(1000);
-        if(Quizpage.getWarningMessage().equals("Playername already exists. Playername must be unique.")) {
-            Random rand = new Random();
-            int nextRandom = rand.nextInt(1, 10000);
-            playerB = playerB + Integer.toString(nextRandom);
-            Quizpage.enterPlayername(Integer.toString(nextRandom));
-            Thread.sleep(100);
-            driver.findElement(By.cssSelector("button:nth-child(6)")).click();
-        }
         Thread.sleep(100);
         Quizpage.navigate();
-        Thread.sleep(100);
         Quizpage.answerAllQuestions();
         Quizpage.enterPlayername(playerA);
         Quizpage.submitPlayername();
-        Thread.sleep(1000);
-        if(Quizpage.getWarningMessage().equals("Playername already exists. Playername must be unique.")) {
-            Random rand = new Random();
-            int nextRandom = rand.nextInt(1, 10000);
-            playerA = playerA + Integer.toString(nextRandom);
-            Quizpage.enterPlayername(Integer.toString(nextRandom));
-            Thread.sleep(100);
-            driver.findElement(By.cssSelector("button:nth-child(6)")).click();
-        }
         Thread.sleep(100);
         WebElement playerRowA = driver.findElement(By.xpath("//div[@data-testid='leaderboard']//tr[td[text()='" + playerA + "']]"));
         WebElement playerRowB = driver.findElement(By.xpath("//div[@data-testid='leaderboard']//tr[td[text()='" + playerB + "']]"));
