@@ -48,14 +48,14 @@ public class LeaderboardTests {
     public void playernameAppearsOnLeaderboard() throws Exception {
         QuizPage Quizpage = new QuizPage(driver).navigate();
         LeaderboardPage leaderboardPage = new LeaderboardPage(driver);
-        Thread.sleep(2000);
+        Thread.sleep(100);
         Quizpage.answerAllQuestions();
-        Thread.sleep(2000);
+        Thread.sleep(100);
         Quizpage.generatePlayername();
         String score = Quizpage.getFinalScore();
         String playername = Quizpage.getPlayername();
         Quizpage.submitPlayername();
-        Thread.sleep(2000);
+        Thread.sleep(100);
         // 1. Locate the row
         WebElement playerRow = driver.findElement(By.xpath("//div[@data-testid='leaderboard']//tr[td[text()='" + playername + "']]"));
         // 2. Extract data from that specific row (Score is the 3rd column / 3rd td)

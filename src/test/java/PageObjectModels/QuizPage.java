@@ -73,6 +73,10 @@ public class QuizPage {
         driver.findElement(By.cssSelector("button:nth-child(3)")).click();
     }
 
+    public void enterPlayername(String name) {
+        driver.findElement(By.id("playername")).sendKeys(name);
+    }
+
     public String getPlayername() {
         WebElement playerNameInput = driver.findElement(By.name("playername"));
         String playername = playerNameInput.getAttribute("value");
@@ -86,5 +90,10 @@ public class QuizPage {
 
     public void submitPlayername() {
         driver.findElement(By.cssSelector("form > button:nth-child(5)")).click();
+    }
+
+    public String getWarningMessage () {
+        String warning = driver.findElement(By.cssSelector("p:nth-child(5)")).getText();
+        return warning;
     }
 }

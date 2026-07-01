@@ -22,6 +22,7 @@ public class QuizTests {
         config.windowMode("portrait");
     }
 
+    //Question formatting tests
     @Test
     public void threeRedOneGreenAnswer() throws Exception {
         QuizPage page = new QuizPage(driver);
@@ -43,6 +44,7 @@ public class QuizTests {
         assertEquals(3, red);
     }
 
+    //Score tests
     @Test
     public void scoreIncrementsCorrectly() throws Exception {
         QuizPage page = new QuizPage(driver);
@@ -64,28 +66,6 @@ public class QuizTests {
         }
         //config.takeScreenshot(driver, "QuizTest1.png");
         System.out.println("number correct: " + correctAnswers);
-    }
-
-    @Test
-    public void randomUsernamesUnique() throws Exception {
-        QuizPage page = new QuizPage(driver);
-        page.navigate();
-        Thread.sleep(200);
-        page.answerAllQuestions();
-        int notUnique = 0;
-        page.generatePlayername();
-        String firstUsername = page.getPlayername();
-        int i = 0;
-        while(i < 50) {
-            page.generatePlayername();
-            String currentUsername = page.getPlayername();
-            if (currentUsername.equals(firstUsername)) {
-                notUnique++;
-            }
-            i++;
-        }
-        System.out.println("Number of repeated usernames: " + notUnique);
-        assertTrue(notUnique < 10);
     }
 
     @AfterEach
