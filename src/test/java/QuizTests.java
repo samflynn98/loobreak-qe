@@ -70,6 +70,7 @@ public class QuizTests {
     public void randomUsernamesUnique() throws Exception {
         QuizPage page = new QuizPage(driver);
         page.navigate();
+        Thread.sleep(200);
         while (Objects.equals(page.getHeadingText(), "Quiz")) {
             page.answerQuestion(1);
             page.submitAnswer();
@@ -81,7 +82,6 @@ public class QuizTests {
         int i = 0;
         while(i < 50) {
             page.generateUsername();
-            Thread.sleep(100);
             String currentUsername = page.getUsername();
             if (currentUsername.equals(firstUsername)) {
                 notUnique++;

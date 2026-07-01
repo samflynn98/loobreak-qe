@@ -16,6 +16,7 @@ public class LeaderboardPage {
         return this;
     }
 
+    //Heading & title
     public String getTitle() {
         String title = driver.getTitle();
         return title;
@@ -24,5 +25,30 @@ public class LeaderboardPage {
     public String getHeadingText() {
         WebElement heading = driver.findElement(By.tagName("h2"));
         return heading.getText();
+    }
+
+    //Player attributes
+    public String getPlayerRank(int id) {
+        try {
+            return driver.findElement(By.cssSelector("tr:nth-child(" + id + ") > td:nth-child(1)")).getText();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return ""; // Return an empty string so your test loop knows to stop
+        }
+    }
+
+    public String getPlayerName(int id) {
+        try {
+            return driver.findElement(By.cssSelector("tr:nth-child(" + id + ") > td:nth-child(2)")).getText();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return ""; // Return an empty string so your test loop knows to stop
+        }
+    }
+
+    public String getPlayerScore(int id) {
+        try {
+            return driver.findElement(By.cssSelector("tr:nth-child(" + id + ") > td:nth-child(3)")).getText();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return ""; // Return an empty string so your test loop knows to stop
+        }
     }
 }
